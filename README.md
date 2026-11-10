@@ -114,8 +114,7 @@ Produces logs like:
 
 ## Notes
 
-- `ctxlog.Add` mutates an internal `map[string]any` stored inside the context. Treat a single request context as request-scoped; avoid concurrent writes from multiple goroutines unless you add your own synchronization.
-- Use `ctxlog.Copy` when you want a stable snapshot for logging/serialization.
+- `ctxlog.Add` and `ctxlog.Get` are safe for concurrent use: goroutines sharing a request context can add fields safely. `ctxlog.Get` returns a snapshot copy, so mutating the returned map does not affect stored fields.
 
 ## Contributing
 
